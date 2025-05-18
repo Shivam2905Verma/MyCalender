@@ -189,6 +189,13 @@ function CalendarApp() {
   const SetBothButtonFalse = () => {
     setBehindForUpdate(false);
     setBehind(false);
+    setForm({
+      id: "",
+      title: "",
+      start: "",
+      end: "",
+      calendarId: "personal",
+    });
   };
 
   const OnDoneHandler = (e) => {
@@ -221,7 +228,14 @@ function CalendarApp() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (!form.title || !form.start || !form.end) return;
+    if (!form.title || !form.start || !form.end) {
+    toast.error("Please fill in all required fields!", {
+      position: "top-center",
+      autoClose: 3000,
+      pauseOnHover: true,
+    });
+    return;
+  }
 
     const newEvent = {
       id: uuidv4(),

@@ -44,10 +44,6 @@ body {
   height: 100vh;
 }
 
-#calendar{
-  border-radius: none;
-}
-
 .sx__event {
   font-size: 1rem;
   padding: 8px 12px;
