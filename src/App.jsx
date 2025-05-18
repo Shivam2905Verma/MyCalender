@@ -17,8 +17,6 @@ import profile from "./assets/profile.webp";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 const dragAndDropPlugin = createDragAndDropPlugin();
 
 function CalendarApp() {
@@ -101,7 +99,6 @@ function CalendarApp() {
     }
   };
 
-
   const calendar = useCalendarApp({
     views: [
       createViewDay(),
@@ -179,7 +176,7 @@ function CalendarApp() {
       },
       onClickDateTime(dateTime) {
         setBehind(true);
-        console.log(dateTime)
+        console.log(dateTime);
         return setForm((pre) => {
           return { ...pre, start: `${dateTime}` };
         });
@@ -187,21 +184,19 @@ function CalendarApp() {
     },
   });
 
-  console.log(form)
-
+  console.log(form);
 
   const SetBothButtonFalse = () => {
     setBehindForUpdate(false);
     setBehind(false);
   };
 
-
-  const OnDoneHandler = (e)=>{
+  const OnDoneHandler = (e) => {
     e.preventDefault();
     setBehindForUpdate(false);
     setBehind(false);
-    eventsService.remove(form.id)
-  }
+    eventsService.remove(form.id);
+  };
 
   const onSubmitUpdateHandler = (e) => {
     e.preventDefault();
@@ -213,7 +208,7 @@ function CalendarApp() {
       start: form.start.replace("T", " "),
       end: form.end.replace("T", " "),
       calendarId: form.calendarId,
-    })
+    });
 
     setForm({
       id: "",
@@ -222,8 +217,6 @@ function CalendarApp() {
       end: "",
       calendarId: "personal",
     });
-
-
   };
 
   const onSubmitHandler = (e) => {
@@ -263,13 +256,13 @@ function CalendarApp() {
   const onchange = (e) => {
     const { name, value } = e.target;
 
-   if (name === "end" && new Date(value) <= new Date(form.start)) {
-    toast.error("⛔ End time must be after start time!", {
-      position: "top-right",
-      autoClose: 3000,
-    });
-    return;
-  }
+    if (name === "end" && new Date(value) <= new Date(form.start)) {
+      toast.error("⛔ End time must be after start time!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
 
     setForm((prevForm) => ({
       ...prevForm,
@@ -295,7 +288,7 @@ function CalendarApp() {
 
   return (
     <div className="flex flex-col sm:flex sm:flex-row ">
-    <ToastContainer />
+      <ToastContainer />
       <div
         className={` ${
           menuToggle ? "w-screen p-5" : "w-0"
@@ -489,23 +482,23 @@ function CalendarApp() {
       >
         <form
           onClick={(e) => e.stopPropagation()}
-          className={`AddForm w-95 ${
-            behind ? "z-index-10" : ""
-          } bg-white p-10 flex flex-col gap-5`}
+          className={`AddForm w-95 ${behind ? "z-index-10" : ""} ${
+            mode ? "text-black bg-white" : "text-white bg-[#1d1b1f]"
+          } border border-gray-300 rounded-2xl p-10 flex flex-col gap-5`}
         >
-          <TextField
-            name="title"
+          <input
             type="text"
+            name="title"
             placeholder="Title"
             value={form.title}
             onChange={onchange}
             required
             id="outlined-basic"
-            label="Title"
-            variant="outlined"
-            className={`${behind ? "z-index-9" : "z-0"}`}
+            className={`border border-gray-200 sm:p-2 ${behind ? "z-index-9" : "z-0"} ${
+              mode ? "text-black" : "text-white"
+            }`}
           />
-          <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex flex-col justify-between sm:flex-row gap-5">
             <div className="flex flex-col border border-gray-200 sm:p-2">
               <label htmlFor="start">Task start at : </label>
               <input
@@ -551,21 +544,21 @@ function CalendarApp() {
 
           {behindForUpdate ? (
             <>
-            <button
-              onClick={onSubmitUpdateHandler}
-              type="submit"
-              className="bg-[#d1bcfe] font-semibold cursor-pointer py-2 rounded-md"
+              <button
+                onClick={onSubmitUpdateHandler}
+                type="submit"
+                className="bg-[#d1bcfe] font-semibold cursor-pointer py-2 rounded-md"
               >
-              Update
-            </button>
-            <button
-              onClick={OnDoneHandler}
-              type="submit"
-              className="bg-[#d1bcfe] font-semibold cursor-pointer py-2 rounded-md"
+                Update
+              </button>
+              <button
+                onClick={OnDoneHandler}
+                type="submit"
+                className="bg-[#d1bcfe] font-semibold cursor-pointer py-2 rounded-md"
               >
-              Done
-            </button>
-              </>
+                Done
+              </button>
+            </>
           ) : (
             <button
               onClick={onSubmitHandler}
