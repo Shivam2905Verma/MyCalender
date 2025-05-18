@@ -494,7 +494,7 @@ function CalendarApp() {
             onChange={onchange}
             required
             id="outlined-basic"
-            className={`border border-gray-200 sm:p-2 ${behind ? "z-index-9" : "z-0"} ${
+            className={`border border-gray-200 p-2 ${behind ? "z-index-9" : "z-0"} ${
               mode ? "text-black" : "text-white"
             }`}
           />
